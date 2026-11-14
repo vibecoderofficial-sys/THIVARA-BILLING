@@ -1,0 +1,13 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+@layer base{h1{@apply text-xl font-bold tracking-tight text-navy sm:text-2xl}body{@apply antialiased}html{scroll-behavior:smooth}}
+@layer components{
+.grad{background-image:linear-gradient(135deg,#0A3FD8 0%,#1E88FF 55%,#27D3F7 100%)}
+.grad-text{background-image:linear-gradient(90deg,#1E7BFF,#27D3F7);-webkit-background-clip:text;background-clip:text;color:transparent}
+.silver-text{background-image:linear-gradient(180deg,#fff,#aab4c2);-webkit-background-clip:text;background-clip:text;color:transparent}
+.inp{@apply w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-base transition placeholder:text-slate-400 focus:border-teal focus:outline-none focus:ring-2 focus:ring-teal/30 sm:py-2 sm:text-sm}
+.btn{@apply grad inline-flex items-center justify-center gap-2 rounded-lg px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm shadow-teal/30 transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-teal/50 disabled:cursor-not-allowed disabled:opacity-50 sm:py-2}
+.btn2{@apply inline-flex items-center justify-center gap-2 rounded-lg border border-navy/15 bg-white px-3.5 py-2.5 text-sm font-semibold text-navy transition hover:border-teal hover:text-teal-600 focus:outline-none focus:ring-2 focus:ring-teal/40 disabled:cursor-not-allowed disabled:opacity-50 sm:py-2}
+.card{@apply rounded-xl border border-navy/10 bg-white p-4 shadow-[0_1px_3px_rgba(5,7,13,.08)] sm:p-5}
+.th{@apply bg-navy-50/60 px-3 py-2.5 text-left text-xs font-semibold text-slate-500}.td{@apply border-t border-slate-100 px-3 py-2.5}
+.tile{@apply grad grid shrink-0 place-items-center rounded-xl text-white shadow-sm shadow-teal/30}
+.noscroll{scrollbar-width:none}.noscroll::-webkit-scrollbar{display:none}}
