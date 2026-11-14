@@ -9,11 +9,11 @@ export async function pdfAction(doc,cust,co,mode){try{const p=buildPdf(doc,cust,
 export function buildPdf(doc,cust,co,logo){const isI=doc.kind==='invoice',p=new jsPDF({format:'a4'}),W=210,c=calc(doc.items,doc);
  p.setFillColor(0,0,0);p.rect(0,0,W,32,'F');try{if(logo)p.addImage(logo,'JPEG',8,2,28,28)}catch(e){}p.setFillColor(...T);p.rect(0,32,W,1.5,'F');
  p.setTextColor(255);p.setFontSize(20).setFont('helvetica','bold').text(co.name||'THIVARA Solutions',40,14);
- p.setFontSize(8).setFont('helvetica','normal').text([co.address,[co.phone,co.email].filter(Boolean).join('  |  '),co.gstin?'GSTIN: '+co.gstin:''].filter(Boolean),40,20);
+ p.setFontSize(8).setFont('helvetica','normal').text([co.address,[co.phone,co.email].filter(Boolean).join('  |  '),co.gstin?'GSTIN: '+co.gstin:''].filter(Boolean).join('\n'),40,20);
  p.setFontSize(18).setFont('helvetica','bold').text(isI?'INVOICE':'QUOTATION',W-14,15,{align:'right'});
  p.setFontSize(9).setFont('helvetica','normal').text(doc.number,W-14,22,{align:'right'});
- p.setTextColor(30);p.setFontSize(9).text(['Bill to:',cust?.name||'',cust?.business||'',cust?.address||'',[cust?.city,cust?.state,cust?.pin].filter(Boolean).join(', '),cust?.gstin?'GSTIN: '+cust.gstin:'',cust?.phone||''].filter(Boolean),14,42);
- p.text([`Date: ${fmtDate(doc.date)}`,isI?`Due: ${fmtDate(doc.due)}`:`Valid until: ${fmtDate(doc.valid)}`,isI&&doc.ref?`Ref/PO: ${doc.ref}`:'',!isI&&doc.timeline?`Delivery: ${doc.timeline}`:''].filter(Boolean),W-14,42,{align:'right'});
+ p.setTextColor(30);p.setFontSize(9).text(['Bill to:',cust?.name||'',cust?.business||'',cust?.address||'',[cust?.city,cust?.state,cust?.pin].filter(Boolean).join(', '),cust?.gstin?'GSTIN: '+cust.gstin:'',cust?.phone||''].filter(Boolean).join('\n'),14,42);
+ p.text([`Date: ${fmtDate(doc.date)}`,isI?`Due: ${fmtDate(doc.due)}`:`Valid until: ${fmtDate(doc.valid)}`,isI&&doc.ref?`Ref/PO: ${doc.ref}`:'',!isI&&doc.timeline?`Delivery: ${doc.timeline}`:''].filter(Boolean).join('\n'),W-14,42,{align:'right'});
  p.autoTable({startY:76,head:[['#','Service','Qty','Unit price','Disc.','Tax %','Total']],headStyles:{fillColor:N},styles:{fontSize:8},
   body:c.rows.map((r,i)=>[i+1,`${r.name}${r.type?' ('+r.type+')':''}\n${r.desc||''}`,`${r.qty} ${r.unit||''}`,m(r.price),m(r.discount),r.tax,m(r.total)]),columnStyles:{1:{cellWidth:68}}});
  let y=p.lastAutoTable.finalY+6;const L=(k,v,b)=>{p.setFont('helvetica',b?'bold':'normal').text(k,120,y);p.text(v,W-14,y,{align:'right'});y+=5.5};
